@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"/>
+</head>
+<body>
+    <div id="root" class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h1>Test suits</h1>
+                <ul>
+                    <li v-for="suit in suits">
+                        <h3>{{suit.name}}</h3>
+                        <hr/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://vuejs.org/js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data : {suits: []},
+        mounted(){
+            this.fetchPosts();
+        },
+        methods: {
+            fetchPosts(){
+                axios.get("/getTestSuits").then(function(response){
+                    this.suits = response.data;
+                }.bind(this));
+            }
+        }
+    });
+
+</script>
+</html>
